@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import VideoJS from "./components/VideoJS";
-
+import CameraPicker from "./components/CameraPicker";
 export default function App() {
   const playerRef = useRef(null);
 
@@ -41,6 +41,7 @@ export default function App() {
         imaOptions={imaOptions}
         onReady={handlePlayerReady}
       />
+      <CameraPicker />
     </>
   );
 }
