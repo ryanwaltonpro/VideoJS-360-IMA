@@ -1,8 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import VideoJS from "./components/VideoJS";
 import CameraPicker from "./components/CameraPicker";
 export default function App() {
   const playerRef = useRef(null);
+  const [camera, setCamera] = useState({});
+
+  const cameras = [
+    {
+      id: 1,
+      src: "",
+      poster: "",
+    },
+    { id: 2, src: "", poster: "" },
+    { id: 3, src: "", poster: "" },
+  ];
 
   const options = {
     autoplay: false,
@@ -40,8 +51,9 @@ export default function App() {
         options={options}
         imaOptions={imaOptions}
         onReady={handlePlayerReady}
+        currentCamera={camera}
       />
-      <CameraPicker />
+      <CameraPicker cameras={cameras} setCamera={setCamera} />
     </>
   );
 }

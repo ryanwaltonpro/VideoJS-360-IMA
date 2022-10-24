@@ -9,13 +9,14 @@ import "videojs-ima/src/css/videojs.ima.css";
 export const VideoJS = (props) => {
   const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const { options, onReady, imaOptions } = props;
+  const { options, onReady, imaOptions, camera } = props;
 
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = videoRef.current;
       if (!videoElement) return;
 
+      options.poster = camera.poster;
       const player = (playerRef.current = videojs(videoElement, options, () => {
         onReady && onReady(player);
       }));
