@@ -15,22 +15,18 @@ export const VideoJS = (props) => {
     if (!playerRef.current) {
       const videoElement = videoRef.current;
       if (!videoElement) return;
-
-      options.poster = camera.poster;
       const player = (playerRef.current = videojs(videoElement, options, () => {
         onReady && onReady(player);
       }));
-
+      player.src(camera.src);
       player.vr({ projection: "360" });
       player.ima(imaOptions);
     } else {
       const player = playerRef.current;
-      player.autoplay(options.autoplay);
-      player.src(options.sources);
+      player.src(camera.src);
       player.vr({ projection: "360" });
-      player.ima(imaOptions);
     }
-  }, [options, videoRef]);
+  }, [options, videoRef, camera]);
 
   useEffect(() => {
     const player = playerRef.current;
