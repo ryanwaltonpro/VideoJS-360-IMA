@@ -9,27 +9,24 @@ import "videojs-ima/src/css/videojs.ima.css";
 export const VideoJS = (props) => {
   const videoRef = useRef(null);
   const playerRef = useRef(null);
-  const { options, onReady, imaOptions } = props;
+  const { options, onReady, imaOptions, camera } = props;
 
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = videoRef.current;
       if (!videoElement) return;
-
       const player = (playerRef.current = videojs(videoElement, options, () => {
         onReady && onReady(player);
       }));
-
+      player.src(camera.src);
       player.vr({ projection: "360" });
       player.ima(imaOptions);
     } else {
       const player = playerRef.current;
-      player.autoplay(options.autoplay);
-      player.src(options.sources);
+      player.src(camera.src);
       player.vr({ projection: "360" });
-      player.ima(imaOptions);
     }
-  }, [options, videoRef]);
+  }, [options, videoRef, camera]);
 
   useEffect(() => {
     const player = playerRef.current;

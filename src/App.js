@@ -1,9 +1,80 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import VideoJS from "./components/VideoJS";
-
+import CameraPicker from "./components/CameraPicker";
 export default function App() {
   const playerRef = useRef(null);
 
+  const cameras = [
+    {
+      id: 1,
+      x: 165,
+      y: 375,
+      src: [
+        {
+          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4",
+        },
+      ],
+    },
+    {
+      id: 2,
+      x: 270,
+      y: 262.5 + 15 * 15,
+      src: [
+        {
+          src: "",
+          type: "video/mp4",
+        },
+      ],
+    },
+    {
+      id: 3,
+      x: 270,
+      y: 262.5,
+      src: [
+        {
+          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4",
+        },
+      ],
+    },
+    {
+      id: 4,
+      x: 480,
+      y: 262.5,
+      src: [
+        {
+          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4",
+        },
+      ],
+    },
+    {
+      id: 5,
+      x: 480,
+      y: 262.5 + 15 * 15,
+      src: [
+        {
+          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4",
+        },
+      ],
+    },
+    {
+      id: 6,
+      x: 28 * 15 + 165,
+      y: 375,
+      src: [
+        {
+          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4",
+        },
+      ],
+    },
+  ];
+
+  const [camera, setCamera] = useState(cameras[0]);
+  console.log(camera.id);
   const options = {
     autoplay: false,
     controls: true,
@@ -12,12 +83,6 @@ export default function App() {
     preload: "auto",
     poster:
       "https://www.fiba.basketball/images.fiba.com/Graphic/3/7/dQMGB5Cfdk6ovOjCGm8dtQ.jpg?v=2014120514385062",
-    sources: [
-      {
-        src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
-        type: "video/mp4",
-      },
-    ],
   };
 
   const handlePlayerReady = (player) => {
@@ -40,6 +105,12 @@ export default function App() {
         options={options}
         imaOptions={imaOptions}
         onReady={handlePlayerReady}
+        camera={camera}
+      />
+      <CameraPicker
+        cameras={cameras}
+        setCamera={setCamera}
+        currentCamera={camera}
       />
     </>
   );
