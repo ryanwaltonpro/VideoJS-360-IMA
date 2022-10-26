@@ -2,8 +2,8 @@ import react from "react";
 import CourtVector from "./CourtVector";
 import CameraVector from "./CameraVector";
 export const CameraPicker = ({ cameras, setCamera, currentCamera }) => {
-  let viewBoxWidth = 750;
-  let viewBoxHeight = 750;
+  const viewBoxWidth = 750;
+  const viewBoxHeight = 750;
   return (
     <>
       Current Camera: {currentCamera.id}
@@ -17,8 +17,7 @@ export const CameraPicker = ({ cameras, setCamera, currentCamera }) => {
             <CameraVector
               x={camera.x}
               y={camera.y}
-              setCamera={setCamera}
-              camera={camera}
+              setCamera={() => setCamera(camera)}
               selected={currentCamera.id == camera.id}
             />
           ))}

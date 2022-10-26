@@ -1,101 +1,136 @@
 import react from "react";
-export const HalfCourtVector = ({
-  viewBoxWidth,
-  viewBoxHeight,
-  transform,
-  rotate,
-}) => {
-  let scale = 15;
-  let courtWidth = 28.65;
-  let courtHeight = 15.24;
-  let centerLgRadius = 1.8;
-  let centerSmallRadius = 0.6;
+export const HalfCourtVector = ({ viewBoxWidth, viewBoxHeight, rotate }) => {
+  const scale = 15;
+  const scaleUp = (value) => {
+    return scale * value;
+  };
+  // Standard basketball court dimensions (in metres)
+  const courtWidth = 28.65;
+  const courtHeight = 15.24;
+  const domeToCenterDistance = 6.71;
+  const centerLgRadius = 1.8;
+  const centerSmallRadius = 0.6;
+  const domeLineLength = 4.26;
 
-  let centerX = viewBoxWidth / 2;
-  let centerY = viewBoxHeight / 2;
+  // Scaled up versions
+  const scaledCourtWidth = scaleUp(courtWidth);
+  const scaledCourtHeight = scaleUp(courtHeight);
+  const scaledCenterLgRadius = scaleUp(centerLgRadius);
+  const scaledCenterSmallRadius = scaleUp(centerSmallRadius);
+  const scaledDomeToCenterDistance = scaleUp(domeToCenterDistance);
+  const scaledDomeLineLength = scaleUp(domeLineLength);
 
-  let xBoundary = (viewBoxWidth - courtWidth * scale) / 2;
-  let yBoundary = (viewBoxHeight - courtHeight * scale) / 2;
-  let final_transform = "";
-  if (transform) final_transform = transform;
-  if (rotate) final_transform += `rotate(${rotate}, ${centerX}, ${centerY})`;
+  // The center coordinates of the SVG viewbox
+  const centerX = viewBoxWidth / 2;
+  const centerY = viewBoxHeight / 2;
+
+  //The leftmost court boundary
+  const xBoundary = (viewBoxWidth - scaledCourtWidth) / 2;
+  //The top court boundary
+  const yBoundary = (viewBoxHeight - scaledCourtHeight) / 2;
+
+  //Styling values
+  const defaultFillColor = "transparent";
+  const defaultStrokeWidth = 1;
+  const defaultStrokeColor = "black";
+
+  //Used to rotate the half court (two half courts equals one full court)
+  let final_transform = rotate
+    ? `rotate(${rotate}, ${centerX}, ${centerY})`
+    : "";
   return (
     <g transform={final_transform}>
-      <path stroke="black" fill="transparent" />
       <rect
-        width={(courtWidth * scale) / 2}
-        height={courtHeight * scale}
+        width={scaledCourtWidth / 2}
+        height={scaledCourtHeight}
         x={xBoundary}
         y={yBoundary}
-        stroke="black"
-        fill="transparent"
+        stroke={defaultStrokeColor}
+        fill={defaultFillColor}
       />
+      {/* The court dome curve */}
       <path
-        d={`M ${xBoundary + 4.26 * scale} ${centerY - 6.71 * scale} 
-            C ${centerY - 38} ${centerY - 6.71 * scale + 20}, 
-            ${centerY - 38} ${centerY + 6.71 * scale - 20},
-             ${xBoundary + 4.26 * scale} ${centerY + 6.71 * scale}`}
-        fill={"transparent"}
-        stroke={"#000"}
+        d={`M ${xBoundary + scaledDomeLineLength} ${
+          centerY - scaledDomeToCenterDistance
+        } 
+            C ${centerY - 38} ${centerY - scaledDomeToCenterDistance + 20}, 
+            ${centerY - 38} ${centerY + scaledDomeToCenterDistance - 20},
+             ${xBoundary + scaledDomeLineLength} ${
+          centerY + scaledDomeToCenterDistance
+        }`}
+        fill={defaultFillColor}
+        stroke={defaultStrokeColor}
       />
+      {/* The circle */}
       <ellipse
-        fill={"transparent"}
-        stroke={"#000"}
-        stroke-width="1"
-        cx={xBoundary + (courtWidth * scale) / 5}
+        fill={defaultFillColor}
+        stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
+        cx={xBoundary + scaledCourtWidth / 5}
         cy={centerY}
         rx={centerLgRadius * scale}
         ry={centerLgRadius * scale}
       />
+
+      {/* Outer box */}
       <rect
-        y={centerY - (courtHeight * scale) / 6}
+        y={centerY - scaledCourtHeight / 6}
         x={xBoundary}
-        width={(courtWidth * scale) / 5}
-        height={(courtHeight * scale) / 3}
-        fill={"transparent"}
-        stroke={"#000"}
-        stroke-width="1"
+        width={scaledCourtWidth / 5}
+        height={scaledCourtHeight / 3}
+        fill={defaultFillColor}
+        stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
       />
+
+      {/* Inner box */}
       <rect
-        y={centerY - centerLgRadius * scale}
+        y={centerY - scaledCenterLgRadius}
         x={xBoundary}
-        width={(courtWidth * scale) / 5}
-        height={centerLgRadius * scale * 2}
-        fill={"transparent"}
-        stroke={"#000"}
-        stroke-width="1"
+        width={scaledCourtWidth / 5}
+        height={scaledCenterLgRadius * 2}
+        fill={defaultFillColor}
+        stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
       />
+      {/* First dome line */}
       <line
-        y1={centerY + 6.71 * scale}
+        y1={centerY + scaledDomeToCenterDistance}
         x1={xBoundary}
-        y2={centerY + 6.71 * scale}
-        x2={xBoundary + 4.26 * scale}
-        stroke="black"
+        y2={centerY + scaledDomeToCenterDistance}
+        x2={xBoundary + scaledDomeLineLength}
+        stroke={defaultStrokeColor}
       />
+
+      {/* Second dome line */}
       <line
-        y1={centerY - 6.71 * scale}
+        y1={centerY - scaledDomeToCenterDistance}
         x1={xBoundary}
-        y2={centerY - 6.71 * scale}
-        x2={xBoundary + 4.26 * scale}
-        stroke="black"
+        y2={centerY - scaledDomeToCenterDistance}
+        x2={xBoundary + scaledDomeLineLength}
+        stroke={defaultStrokeColor}
       />
+
+      {/* Outer center circle */}
       <ellipse
-        fill={"transparent"}
-        stroke={"#000"}
-        stroke-width="1"
+        fill={defaultFillColor}
+        stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
         cx={centerX}
         cy={centerY}
-        rx={centerLgRadius * scale}
-        ry={centerLgRadius * scale}
+        rx={scaledCenterLgRadius}
+        ry={scaledCenterLgRadius}
       />
+
+      {/* Inner center circle */}
       <ellipse
-        fill={"transparent"}
-        stroke={"#000"}
-        stroke-width="1"
+        fill={defaultFillColor}
+        stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
         cx={centerX}
         cy={centerY}
-        rx={centerSmallRadius * scale}
-        ry={centerSmallRadius * scale}
+        rx={scaledCenterSmallRadius}
+        ry={scaledCenterSmallRadius}
       />
     </g>
   );
