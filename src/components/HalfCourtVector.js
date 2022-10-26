@@ -97,13 +97,6 @@ export const HalfCourtVector = ({
         rx={centerSmallRadius * scale}
         ry={centerSmallRadius * scale}
       />
-      <line
-        y1={yBoundary}
-        x1={centerX}
-        y2={yBoundary + courtHeight * scale}
-        x2={centerX}
-        stroke="black"
-      />
     </g>
   );
 };

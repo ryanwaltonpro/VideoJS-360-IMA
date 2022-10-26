@@ -1,23 +1,17 @@
 import react from "react";
-import HalfCourtVector from "./HalfCourtVector";
+import CourtVector from "./CourtVector";
 import CameraVector from "./CameraVector";
 export const CameraPicker = ({ cameras, setCamera, currentCamera }) => {
   let viewBoxWidth = 750;
   let viewBoxHeight = 750;
-
   return (
     <>
       Current Camera: {currentCamera.id}
       <svg width="100%" viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}>
         <g>
-          <HalfCourtVector
+          <CourtVector
             viewBoxHeight={viewBoxHeight}
             viewBoxWidth={viewBoxWidth}
-          />
-          <HalfCourtVector
-            viewBoxHeight={viewBoxHeight}
-            viewBoxWidth={viewBoxWidth}
-            rotate={180}
           />
           {cameras.map((camera) => (
             <CameraVector
