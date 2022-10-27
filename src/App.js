@@ -1,9 +1,18 @@
 import { useRef, useState } from "react";
 import VideoJS from "./components/VideoJS";
 import CameraPicker from "./components/CameraPicker";
+import Highlights from "./components/Highlights";
 export default function App() {
   const playerRef = useRef(null);
-
+  const [vidtype, setVidtype] = useState("");
+  function handleLive() {
+    setVidtype("Live");
+    console.log(vidtype);
+  }
+  function handleVod() {
+    setVidtype("Vod");
+    console.log(vidtype);
+  }
   const cameras = [
     {
       id: 1,
@@ -11,10 +20,11 @@ export default function App() {
       y: 375,
       src: [
         {
-          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
-          type: "video/mp4",
-        },
-      ],
+          src:
+            "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4"
+        }
+      ]
     },
     {
       id: 2,
@@ -23,9 +33,9 @@ export default function App() {
       src: [
         {
           src: "",
-          type: "video/mp4",
-        },
-      ],
+          type: "video/mp4"
+        }
+      ]
     },
     {
       id: 3,
@@ -33,10 +43,11 @@ export default function App() {
       y: 262.5,
       src: [
         {
-          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
-          type: "video/mp4",
-        },
-      ],
+          src:
+            "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4"
+        }
+      ]
     },
     {
       id: 4,
@@ -44,10 +55,11 @@ export default function App() {
       y: 262.5,
       src: [
         {
-          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
-          type: "video/mp4",
-        },
-      ],
+          src:
+            "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4"
+        }
+      ]
     },
     {
       id: 5,
@@ -55,10 +67,11 @@ export default function App() {
       y: 262.5 + 15 * 15,
       src: [
         {
-          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
-          type: "video/mp4",
-        },
-      ],
+          src:
+            "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4"
+        }
+      ]
     },
     {
       id: 6,
@@ -66,11 +79,12 @@ export default function App() {
       y: 375,
       src: [
         {
-          src: "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
-          type: "video/mp4",
-        },
-      ],
-    },
+          src:
+            "https://d8d913s460fub.cloudfront.net/krpanocloud/video/airpano/video-1920x960a-fs.mp4",
+          type: "video/mp4"
+        }
+      ]
+    }
   ];
 
   const [camera, setCamera] = useState(cameras[0]);
@@ -82,7 +96,7 @@ export default function App() {
     fluid: true,
     preload: "auto",
     poster:
-      "https://www.fiba.basketball/images.fiba.com/Graphic/3/7/dQMGB5Cfdk6ovOjCGm8dtQ.jpg?v=2014120514385062",
+      "https://www.fiba.basketball/images.fiba.com/Graphic/3/7/dQMGB5Cfdk6ovOjCGm8dtQ.jpg?v=2014120514385062"
   };
 
   const handlePlayerReady = (player) => {
@@ -95,23 +109,47 @@ export default function App() {
   var imaOptions = {
     forceNonLinearFullSlot: true,
     adTagUrl:
-      "https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpreonly&ciu_szs=300x250%2C728x90&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&correlator=",
+      "https://pubads.g.doubleclick.net/gampad/ads?iu=/21775744923/external/vmap_ad_samples&sz=640x480&cust_params=sample_ar%3Dpreonly&ciu_szs=300x250%2C728x90&gdfp_req=1&ad_rule=1&output=vmap&unviewed_position_start=1&env=vp&impl=s&correlator="
   };
 
   return (
     <>
-      <h3>Sample Player</h3>
-      <VideoJS
-        options={options}
-        imaOptions={imaOptions}
-        onReady={handlePlayerReady}
-        camera={camera}
-      />
-      <CameraPicker
-        cameras={cameras}
-        setCamera={setCamera}
-        currentCamera={camera}
-      />
+      <p>Welcome to Sky Italia 360 Immersive Basketball</p>
+      {!vidtype && (
+        <>
+          <p>
+            This is where the user's journey will start with a simple choice
+            between Livestream and VOD options.
+          </p>
+          <button onClick={handleLive}>Show Me Livestream</button>
+          <button onClick={handleVod}>Show Me Highlights</button>
+        </>
+      )}
+
+      {vidtype === "Live" && (
+        <>
+          <button onClick={handleVod}>Show Me Highlights</button>
+          <h3>Sample Player</h3>
+          <VideoJS
+            options={options}
+            imaOptions={imaOptions}
+            onReady={handlePlayerReady}
+            camera={camera}
+          />
+          <CameraPicker
+            cameras={cameras}
+            setCamera={setCamera}
+            currentCamera={camera}
+          />
+        </>
+      )}
+      {vidtype === "Vod" && (
+        <>
+          <button onClick={handleLive}>Show Me Livestream</button>
+          <Highlights />
+        </>
+      )}
+      {!vidtype && <img width="100%" src="poster.png" alt="team" />}
     </>
   );
 }
