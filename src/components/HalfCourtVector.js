@@ -1,9 +1,15 @@
-import react from "react";
-export const HalfCourtVector = ({ viewBoxWidth, viewBoxHeight, rotate }) => {
+import react, { useEffect } from "react";
+export const HalfCourtVector = ({
+  viewBoxWidth,
+  viewBoxHeight,
+  rotate,
+  setCameraPoisitons,
+}) => {
   const scale = 15;
   const scaleUp = (value) => {
     return scale * value;
   };
+
   // Standard basketball court dimensions (in metres)
   const courtWidth = 28.65;
   const courtHeight = 15.24;
@@ -31,8 +37,26 @@ export const HalfCourtVector = ({ viewBoxWidth, viewBoxHeight, rotate }) => {
 
   //Styling values
   const defaultFillColor = "transparent";
-  const defaultStrokeWidth = 1;
+  const defaultStrokeWidth = 1.75;
   const defaultStrokeColor = "black";
+  useEffect(() => {
+    setCameraPoisitons([
+      { id: 1, x: xBoundary, y: centerY },
+      { id: 2, x: xBoundary + scaledCourtWidth * (1 / 4), y: yBoundary },
+      { id: 3, x: xBoundary + scaledCourtWidth * (3 / 4), y: yBoundary },
+      { id: 4, x: xBoundary + scaledCourtWidth, y: centerY },
+      {
+        id: 5,
+        x: xBoundary + scaledCourtWidth * (3 / 4),
+        y: yBoundary + scaledCourtHeight,
+      },
+      {
+        id: 6,
+        x: xBoundary + scaledCourtWidth * (1 / 4),
+        y: yBoundary + scaledCourtHeight,
+      },
+    ]);
+  }, [viewBoxWidth, viewBoxHeight]);
 
   //Used to rotate the half court (two half courts equals one full court)
   let final_transform = rotate
@@ -40,27 +64,32 @@ export const HalfCourtVector = ({ viewBoxWidth, viewBoxHeight, rotate }) => {
     : "";
   return (
     <g transform={final_transform}>
+      <button> hi </button>
       <rect
         width={scaledCourtWidth / 2}
         height={scaledCourtHeight}
         x={xBoundary}
         y={yBoundary}
         stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
         fill={defaultFillColor}
       />
+
       {/* The court dome curve */}
       <path
         d={`M ${xBoundary + scaledDomeLineLength} ${
           centerY - scaledDomeToCenterDistance
         } 
-            C ${centerY - 38} ${centerY - scaledDomeToCenterDistance + 20}, 
-            ${centerY - 38} ${centerY + scaledDomeToCenterDistance - 20},
+            C ${centerY} ${centerY - scaledDomeToCenterDistance + 20}, 
+            ${centerY} ${centerY + scaledDomeToCenterDistance - 20},
              ${xBoundary + scaledDomeLineLength} ${
           centerY + scaledDomeToCenterDistance
         }`}
         fill={defaultFillColor}
         stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
       />
+
       {/* The circle */}
       <ellipse
         fill={defaultFillColor}
@@ -93,6 +122,7 @@ export const HalfCourtVector = ({ viewBoxWidth, viewBoxHeight, rotate }) => {
         stroke={defaultStrokeColor}
         stroke-width={defaultStrokeWidth}
       />
+
       {/* First dome line */}
       <line
         y1={centerY + scaledDomeToCenterDistance}
@@ -109,6 +139,7 @@ export const HalfCourtVector = ({ viewBoxWidth, viewBoxHeight, rotate }) => {
         y2={centerY - scaledDomeToCenterDistance}
         x2={xBoundary + scaledDomeLineLength}
         stroke={defaultStrokeColor}
+        stroke-width={defaultStrokeWidth}
       />
 
       {/* Outer center circle */}
