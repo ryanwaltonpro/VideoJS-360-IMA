@@ -20,7 +20,7 @@ export const VideoJS = (props) => {
       }));
       player.src(camera.src);
       player.vr({ projection: "360" });
-      player.ima(imaOptions);
+      if (imaOptions) player.ima(imaOptions);
     } else {
       const player = playerRef.current;
       player.src(camera.src);
@@ -41,11 +41,7 @@ export const VideoJS = (props) => {
   return (
     <>
       <div data-vjs-player>
-        <video
-          ref={videoRef}
-          className="video-js vjs-big-play-centered"
-          crossOrigin="anonymous"
-        />
+        <video ref={videoRef} className="video-js" crossOrigin="anonymous" />
       </div>
     </>
   );

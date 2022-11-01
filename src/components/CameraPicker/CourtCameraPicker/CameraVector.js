@@ -1,6 +1,5 @@
-import react, { useState } from "react";
-
-export const CameraVector = ({ x, y, selected, setCamera }) => {
+import { useState } from "react";
+export const CameraVector = ({ x, y, selected, setCamera, setShowPreview }) => {
   const [hovered, setHovered] = useState(false);
   const selectedRadius = 12.5;
   const unselectedRadius = 12.5;
@@ -15,8 +14,14 @@ export const CameraVector = ({ x, y, selected, setCamera }) => {
       cx={x}
       cy={y}
       rx={hovered || selected ? selectedRadius : unselectedRadius}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => {
+        setHovered(true);
+        setShowPreview(true);
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+        setShowPreview(false);
+      }}
     />
   );
 };
