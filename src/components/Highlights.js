@@ -82,12 +82,13 @@ const Highlights = (props) => {
       </div>
       <div>
         <ImageList sx={{ width: 1200, height: 200 }} cols={4}>
-          {games.map((item) => (
+          {games.map((item, i) => (
             <ImageListItem key={games.id} cols={1} rows={0.25}>
               <img
                 src={`${item.poster}?w=248&fit=crop&auto=format`}
                 alt={item.name}
                 loading="lazy"
+                onClick={(e) => handleClick(i)}
               />
               <ImageListItemBar
                 title={item.name}
