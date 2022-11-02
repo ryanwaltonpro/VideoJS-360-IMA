@@ -18,11 +18,13 @@ export const VideoHighlights = (props) => {
       const player = (playerRef.current = videojs(videoElement, options, () => {
         onReady && onReady(player);
       }));
+      player.poster(props.poster);
       player.src(props.src);
       player.vr({ projection: "360" });
       player.ima(imaOptions);
     } else {
       const player = playerRef.current;
+      player.poster(props.poster);
       player.src(props.src);
       player.vr({ projection: "360" });
     }
@@ -46,7 +48,6 @@ export const VideoHighlights = (props) => {
           ref={videoRef}
           className="video-js vjs-big-play-centered"
           crossOrigin="anonymous"
-          // poster={props.poster}
         />
       </div>
     </>
