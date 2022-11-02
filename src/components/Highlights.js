@@ -7,7 +7,7 @@ import { games } from "./games.js";
 import { useState } from "react";
 import { useRef } from "react";
 import VideoHighlights from "./VideoHighlights.js";
-import { ImageList, ImageListItem } from "@mui/material/ImageList";
+import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
 
 const Highlights = (props) => {
   const [chosen, setChosen] = useState({
@@ -80,20 +80,23 @@ const Highlights = (props) => {
           ))}
         </Carousel>
       </div>
-      {/* <div>
-        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+      <div>
+        <ImageList sx={{ width: 1200, height: 200 }} cols={4}>
           {games.map((item) => (
-            <ImageListItem key={item.id}>
+            <ImageListItem key={games.id} cols={1} rows={0.25}>
               <img
-                src={`${item.poster}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.poster}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                src={`${item.poster}?w=248&fit=crop&auto=format`}
                 alt={item.name}
                 loading="lazy"
               />
+              <ImageListItemBar
+                title={item.name}
+                subtitle={item.date}
+              ></ImageListItemBar>
             </ImageListItem>
           ))}
         </ImageList>
-      </div> */}
+      </div>
     </>
   );
 };
