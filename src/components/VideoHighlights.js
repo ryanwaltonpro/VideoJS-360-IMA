@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Typography } from "@mui/material";
 import videojs from "video.js";
 import "videojs-vr";
 import "videojs-contrib-ads";
@@ -42,7 +43,14 @@ export const VideoHighlights = (props) => {
 
   return (
     <>
-      <div>{props.name}</div>
+      <div>
+        <Typography variant="h5" component="div">
+          {props.name}
+        </Typography>
+        <Typography gutterBottom variant="body1" component="div">
+          {props.date}
+        </Typography>
+      </div>
       <div data-vjs-player>
         <video
           ref={videoRef}

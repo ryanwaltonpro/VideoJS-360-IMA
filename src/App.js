@@ -3,6 +3,7 @@ import VideoJS from "./components/VideoJS";
 import Box from "./components/Box";
 import CameraPicker from "./components/CameraPicker/CameraPicker";
 import Highlights from "./components/Highlights";
+import { Typography } from "@mui/material";
 
 export default function App() {
   const playerRef = useRef(null);
@@ -50,13 +51,15 @@ export default function App() {
 
   return (
     <>
-      <p>Sky Italia 360 Immersive Basketball</p>
+      <Typography gutterBottom variant="h4" component="div">
+        Sky Italia 360<span>&#176;</span> Immersive Basketball
+      </Typography>
       {!vidtype && (
         <>
-          <p>
+          <Typography variant="body1" component="div">
             This is where the user's journey will start with a simple choice
             between Livestream and VOD options.
-          </p>
+          </Typography>
           <button onClick={handleLive}>Show Me Livestream</button>
           <button onClick={handleVod}>Show Me Highlights</button>
         </>
@@ -92,15 +95,20 @@ export default function App() {
       )}
       {vidtype === "Vod" && (
         <>
-          <button onClick={handleLive}>Watch Livestream</button>
-          <h3>
-            Basketball Highlights in 360<span>&#176;</span> Immersive Video
-          </h3>
+          <p></p>
+          <Typography gutterBottom variant="h5" component="div">
+            All the Highlights in 360<span>&#176;</span>{" "}
+            <button onClick={handleLive}>
+              <Typography gutterBottom variant="body1" component="div">
+                Switch to Livestream 360<span>&#176;</span>
+              </Typography>
+            </button>
+          </Typography>
+
           <Highlights />
         </>
       )}
       {!vidtype && <img width="100%" src="poster.png" alt="team" />}
     </>
-    //
   );
 }

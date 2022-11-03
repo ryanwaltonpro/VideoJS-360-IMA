@@ -1,13 +1,16 @@
 import React from "react";
-import Carousel from "react-material-ui-carousel";
-import { Paper } from "@mui/material";
-import { Card, CardActionArea } from "@mui/material";
-import { Grid } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  CardMedia
+} from "@mui/material";
 import { games } from "./games.js";
 import { useState } from "react";
 import { useRef } from "react";
 import VideoHighlights from "./VideoHighlights.js";
-import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import { ImageList, ImageListItem } from "@mui/material";
 
 const Highlights = (props) => {
   const [chosen, setChosen] = useState({
@@ -60,40 +63,30 @@ const Highlights = (props) => {
         />
       </div>
       <div>
-        <Carousel navButtonsAlwaysVisible>
+        <ImageList cols={4}>
           {games.map((item, i) => (
-            <>
-              {/* adding inline arrow function with synthetic event allowed me to pass i into handleClick */}
-              <Card variant="outlined" onClick={(e) => handleClick(i)}>
+            <ImageListItem key={games.id} cols={1}>
+              <Card sx={{ maxWidth: 345 }} onClick={(e) => handleClick(i)}>
                 <CardActionArea>
-                  <Paper>
-                    <div style={{ textAlign: "center" }}>
-                      <img width="300px" src={item.poster} alt={item.name} />
-                      <h4>
-                        {item.name} {item.date}
-                      </h4>
-                    </div>
-                  </Paper>
+                  <CardMedia
+                    component="img"
+                    height="140"
+                    image={item.poster}
+                    alt={item.name}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {item.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.date}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {item.description}
+                    </Typography>
+                  </CardContent>
                 </CardActionArea>
               </Card>
-            </>
-          ))}
-        </Carousel>
-      </div>
-      <div>
-        <ImageList sx={{ width: 1200, height: 200 }} cols={4}>
-          {games.map((item, i) => (
-            <ImageListItem key={games.id} cols={1} rows={0.25}>
-              <img
-                src={`${item.poster}?w=248&fit=crop&auto=format`}
-                alt={item.name}
-                loading="lazy"
-                onClick={(e) => handleClick(i)}
-              />
-              <ImageListItemBar
-                title={item.name}
-                subtitle={item.date}
-              ></ImageListItemBar>
             </ImageListItem>
           ))}
         </ImageList>
