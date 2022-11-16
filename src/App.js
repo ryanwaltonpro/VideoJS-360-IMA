@@ -176,7 +176,11 @@ export default function App() {
       )}
       {vidtype === "Search" && team && (
         <>
-          <button onClick={handleVod}>Watch Highlights</button>
+          <button onClick={handleLive}>
+            <Typography gutterBottom variant="body1" component="div">
+              Switch to Livestream 360<span>&#176;</span>
+            </Typography>
+          </button>
           <h3>You are Watching highlights from the {team} game</h3>
 
           <Box
