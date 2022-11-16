@@ -109,7 +109,7 @@ export default function App() {
               <thead>
                 <tr>
                   <th>Gameweek</th>
-                  <th>Country</th>
+                  <th>Opposition</th>
                   <th>Score</th>
                   <th>Link</th>
                 </tr>
@@ -177,7 +177,7 @@ export default function App() {
       {vidtype === "Search" && team && (
         <>
           <button onClick={handleVod}>Watch Highlights</button>
-          <h3>You are Watching highlights for the {team}</h3>
+          <h3>You are Watching highlights from the {team} game</h3>
 
           <Box
             style={{
