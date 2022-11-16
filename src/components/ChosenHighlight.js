@@ -17,7 +17,7 @@ import Divider from "./Divider.js";
 const ChosenHighlight = (props) => {
   const [chosen, setChosen] = useState({
     id: "1",
-    name: `Bar Vs ${props.team}`,
+    name: `Olimpia Milano Vs ${props.team}`,
     date: "22 November 2022",
     description: "All the action from this nailbiter!",
     poster: "poster1.jpg",
